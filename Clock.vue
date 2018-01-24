@@ -1,6 +1,6 @@
 <template>
   <time class="clock">
-    <span class="clock__hour">{{ hours }}</span><!--
+    <span class="clock__hour">{{ convertHours }}</span><!--
     --><span v-if="!blink || seconds % 2 === 0">:</span><!--
     --><span v-else>&nbsp;</span><!--
     --><span class="clock__minutes">{{ minutes }}</span><!--
@@ -46,6 +46,17 @@ module.exports = {
       hours: getHour(),
       seconds: getSeconds(),
     };
+  },
+  
+  computed: function computed() {
+    convertHours: function convertHours() {
+      if (this.hours > 12) {
+        return this.hours -= 12;
+      } else if (this.hours === 0) {
+        return 12;
+      }
+      return this.hours;
+    },
   },
 
   created: function created() {
