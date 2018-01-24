@@ -4,10 +4,10 @@
     --><span v-if="!blink || seconds % 2 === 0">:</span><!--
     --><span v-else>&nbsp;</span><!--
     --><span class="clock__minutes">{{ minutes }}</span><!--
-    --><span v-if="displayMeridian" class="clock_seconds">{{ meridian }}</span><!--
         --><span v-if="!blink || (seconds % 2 === 0 && displaySeconds)">:</span><!--
     --><span v-else-if="displaySeconds">&nbsp;</span><!--
-    --><span v-if="displaySeconds" class="clock__seconds">{{ seconds }}</span>
+    --><span v-if="displaySeconds" class="clock__seconds">{{ seconds }}</span><!--
+     --><span v-if="displayMeridian" class="clock_meridian">{{ meridian }}</span>
   </time>
 </template>
 
