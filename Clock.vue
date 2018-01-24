@@ -45,7 +45,7 @@ function getHour() {
 }
 
 function getMeridian() {
-  return getDate.getHours() >= 12 ? 'PM' : 'AM';
+  return getDate().getHours() >= 12 ? 'PM' : 'AM';
 }
 
 module.exports = {
