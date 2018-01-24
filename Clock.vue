@@ -4,6 +4,7 @@
     --><span v-if="!blink || seconds % 2 === 0">:</span><!--
     --><span v-else>&nbsp;</span><!--
     --><span class="clock__minutes">{{ minutes }}</span><!--
+    --><span v-if="displayMeridian" class="clock_seconds">{{ meridian }}</span><!--
         --><span v-if="!blink || (seconds % 2 === 0 && displaySeconds)">:</span><!--
     --><span v-else-if="displaySeconds">&nbsp;</span><!--
     --><span v-if="displaySeconds" class="clock__seconds">{{ seconds }}</span>
@@ -43,10 +44,14 @@ function getHour() {
   return padZero(fixHours(getDate().getHours()));
 }
 
+function getMeridian() {
+  return getHour() < 12 || getHour() === 24 ? 'AM' : 'PM';
+}
+
 module.exports = {
   name: 'clock',
 
-  props: ['blink', 'displaySeconds'],
+  props: ['blink', 'displaySeconds', 'displayMeridian'],
 
   data: function data() {
     return {
@@ -54,6 +59,7 @@ module.exports = {
       minutes: getMinutes(),
       hours: getHour(),
       seconds: getSeconds(),
+      meridian: getMeridian(),
     };
   },
 
@@ -64,6 +70,7 @@ module.exports = {
       _this.minutes = getMinutes();
       _this.hours = getHour();
       _this.seconds = getSeconds();
+      _this.meridian = getMeridian();
     }, 1000);
   },
 
