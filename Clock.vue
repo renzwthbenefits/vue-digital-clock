@@ -1,6 +1,6 @@
 <template>
   <time class="clock">
-    <span class="clock__hour">{{ convertHours }}</span><!--
+    <span class="clock__hour">{{ hours }}</span><!--
     --><span v-if="!blink || seconds % 2 === 0">:</span><!--
     --><span v-else>&nbsp;</span><!--
     --><span class="clock__minutes">{{ minutes }}</span><!--
@@ -18,6 +18,15 @@ function padZero(number) {
   return number;
 }
 
+function fixHours(hours) {
+ if (hours > 12) {
+   return hours -= 12;
+ } else if (hours === 0) {
+   return 12;
+ }
+ return hours;
+}
+
 function getDate() {
   return new Date();
 }
@@ -31,7 +40,7 @@ function getMinutes() {
 }
 
 function getHour() {
-  return padZero(getDate().getHours());
+  return padZero(fixHours(getDate().getHours()));
 }
 
 module.exports = {
@@ -46,17 +55,6 @@ module.exports = {
       hours: getHour(),
       seconds: getSeconds(),
     };
-  },
-  
-  computed: function computed() {
-    convertHours: function convertHours() {
-      if (this.hours > 12) {
-        return this.hours -= 12;
-      } else if (this.hours === 0) {
-        return 12;
-      }
-      return this.hours;
-    },
   },
 
   created: function created() {
